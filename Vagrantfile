@@ -11,7 +11,7 @@ Vagrant.configure(2) do |config|
   config.winrm.username = "vagrant"
   config.winrm.password = "vagrant"
 
-  config.vm.network "forwarded_RDP_port", guest: 3389, host: 33389, auto_correct: true
+  config.vm.network "forwarded_port", guest: 3389, host: 33389, auto_correct: true
 
   config.vm.provider "virtualbox" do |vb|
     vb.gui = false
@@ -27,10 +27,22 @@ Vagrant.configure(2) do |config|
 	if (!(get-item 'c:\vagrant\introcs.exe')){
     Invoke-WebRequest 'http://introcs.cs.princeton.edu/java/windows/introcs.exe' -OutFile 'c:\vagrant\introcs.exe'
 		}
+	
 	#use envar toggle to determine if we need to run introcs.exe	
 	if(!($ENV:INTROCS)){
 	  [Environment]::SetEnvironmentVariable("INTROCS","TRUE","MACHINE")
 		start-process 'c:\vagrant\introcs.exe'
+		}
+	
+	#install a windows package manager
+	if(!($ENV:CHOCO)){
+	  [Environment]::SetEnvironmentVariable("CHOCO","TRUE","MACHINE")
+		iwr https://chocolatey.org/install.ps1 -UseBasicParsing | iex
+	  }
+		
+	if(!($ENV:NOTEPADPLUSPLUS)){
+	  [Environment]::SetEnvironmentVariable("NOTEPADPLUSPLUS","TRUE","MACHINE")
+		choco install notepadplusplus -y
 		}
   ~
   
