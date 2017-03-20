@@ -47,7 +47,7 @@ Vagrant.configure(2) do |config|
 
 	if(!($ENV:PROVISION_GIT)){
 	  [Environment]::SetEnvironmentVariable("PROVISION_GIT","TRUE","MACHINE")
-		choco install git
+		choco install git -y
 		}
   ~
   
