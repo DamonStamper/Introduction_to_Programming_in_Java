@@ -29,20 +29,25 @@ Vagrant.configure(2) do |config|
 		}
 	
 	#use envar toggle to determine if we need to run introcs.exe	
-	if(!($ENV:INTROCS)){
-	  [Environment]::SetEnvironmentVariable("INTROCS","TRUE","MACHINE")
+	if(!($ENV:PROVISION_INTROCS)){
+	  [Environment]::SetEnvironmentVariable("PROVISION_INTROCS","TRUE","MACHINE")
 		start-process 'c:\vagrant\introcs.exe'
 		}
 	
 	#install a windows package manager
-	if(!($ENV:CHOCO)){
-	  [Environment]::SetEnvironmentVariable("CHOCO","TRUE","MACHINE")
+	if(!($ENV:PROVISION_CHOCO)){
+	  [Environment]::SetEnvironmentVariable("PROVISION_CHOCO","TRUE","MACHINE")
 		iwr https://chocolatey.org/install.ps1 -UseBasicParsing | iex
 	  }
 		
-	if(!($ENV:NOTEPADPLUSPLUS)){
-	  [Environment]::SetEnvironmentVariable("NOTEPADPLUSPLUS","TRUE","MACHINE")
+	if(!($ENV:PROVISION_NOTEPADPLUSPLUS)){
+	  [Environment]::SetEnvironmentVariable("PROVISION_NOTEPADPLUSPLUS","TRUE","MACHINE")
 		choco install notepadplusplus -y
+		}
+
+	if(!($ENV:PROVISION_GIT)){
+	  [Environment]::SetEnvironmentVariable("PROVISION_GIT","TRUE","MACHINE")
+		choco install git
 		}
   ~
   
