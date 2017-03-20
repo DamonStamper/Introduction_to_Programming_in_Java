@@ -23,10 +23,15 @@ Vagrant.configure(2) do |config|
   end
  
   config.vm.provision "shell", inline: %q~
+	#Download introcs.exe if it doesn't exist. We don't use a feature toggle here because the c:\vagrant directory is shared between host/guest and is therefore persistant thus a VM specific toggle is insufficent.
 	if (!(get-item 'c:\vagrant\introcs.exe')){
     Invoke-WebRequest 'http://introcs.cs.princeton.edu/java/windows/introcs.exe' -OutFile 'c:\vagrant\introcs.exe'
 		}
-		
+	#use envar toggle to determine if we need to run introcs.exe	
+	if(!($ENV:INTROCS)){
+	  [Environment]::SetEnvironmentVariable("INTROCS","TRUE","MACHINE")
+		start-process 'c:\vagrant\introcs.exe'
+		}
   ~
   
 end
