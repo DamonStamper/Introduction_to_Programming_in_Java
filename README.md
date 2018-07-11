@@ -10,3 +10,7 @@ Uses Vagrant to setup a development environment
 #Running a compiled Java file (class)
 
 `java file` (Do not add file extention of '.class)'
+
+#TODO
+##Environment setup
+* Enable specifying versions in Chocolatey input file (ChocolateyPackages.txt) to result in specific versions being installed by Chocolatey.

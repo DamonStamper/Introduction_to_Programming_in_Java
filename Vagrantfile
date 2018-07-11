@@ -44,18 +44,11 @@ Vagrant.configure(2) do |config|
 			write-output "Installed Chocolatey"
 		}
 			
-		if(!($ENV:PROVISION_NOTEPADPLUSPLUS)){
-			write-output "Installing notepadplusplus"
-			[Environment]::SetEnvironmentVariable("PROVISION_NOTEPADPLUSPLUS","TRUE","MACHINE")
-			choco install notepadplusplus -y --limit-output
-			write-output "Installed notepadplusplus"
-			}
-	
-		if(!($ENV:PROVISION_GIT)){
-			write-output "Installing Git"
-			[Environment]::SetEnvironmentVariable("PROVISION_GIT","TRUE","MACHINE")
-			choco install git -y --limit-output
-			write-output "Installed Git"
+		$packages = get-content "ChocolateyPackages.txt"
+		foreach ($package in $packages){
+			write-output "Installing $package"
+			choco install $package -y --limit-output
+			write-output "Installed $package"
 			}
 		~
 	
