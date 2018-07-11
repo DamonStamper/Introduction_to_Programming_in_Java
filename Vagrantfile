@@ -43,13 +43,9 @@ Vagrant.configure(2) do |config|
 			iwr https://chocolatey.org/install.ps1 -UseBasicParsing | iex
 			write-output "Installed Chocolatey"
 		}
-			
-		$packages = get-content "c:\vagrant\provision\ChocolateyPackages.txt"
-		foreach ($package in $packages){
-			write-output "Installing $package"
-			choco install $package -y --limit-output
-			write-output "Installed $package"
-			}
+		
+		write-output "Ensuring packages defined in .\Provision\Chocolatey.config are installed."
+		choco install c:\vagrant\Provision\Chocolatey.config -y --no-progress --limit-output
 		~
 	
 	config.vm.provision "shell", inline: %q~

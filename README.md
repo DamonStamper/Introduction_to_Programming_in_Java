@@ -13,4 +13,3 @@ Uses Vagrant to setup a development environment
 
 #TODO
 ##Environment setup
-* Enable specifying versions in Chocolatey input file (ChocolateyPackages.txt) to result in specific versions being installed by Chocolatey.
