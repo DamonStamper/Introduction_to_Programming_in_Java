@@ -44,7 +44,7 @@ Vagrant.configure(2) do |config|
 			write-output "Installed Chocolatey"
 		}
 			
-		$packages = get-content "ChocolateyPackages.txt"
+		$packages = get-content "c:\vagrant\provision\ChocolateyPackages.txt"
 		foreach ($package in $packages){
 			write-output "Installing $package"
 			choco install $package -y --limit-output
